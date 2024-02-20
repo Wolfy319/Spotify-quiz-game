@@ -1,4 +1,24 @@
-<div *ngIf="authLoading || configLoading">Loading...</div>
+<app-navbar></app-navbar>
+<h1>Who's Who</h1>
+<form [formGroup]="homeGameForm">
+  <label for="years">Enter a range of years (ex: 1999-2010)</label>
+  <input type="number" name="years" formControlName="yearsFrom" placeholder="From..." /> 
+  <input type="number"name="years" formControlName="yearsTo" placeholder="To..."/>
+  <label for="genre">Select a genre</label>
+  <select name="genre" formControlName="selectedGenre">
+    <option *ngFor="let genre of genres">{{genre}}</option>
+  </select>
+</form>
+<app-leaderboard></app-leaderboard>
+<app-button text="Play"></app-button>
+<app-button text="Infinite Mode"></app-button>
+
+
+<!-- <h1>{{homeGameForm.controls['years'].value}}</h1>
+<h1>{{homeGameForm.controls['selectedGenre'].value}}</h1> -->
+
+
+<!-- <div *ngIf="authLoading || configLoading">Loading...</div>
 <div *ngIf="!authLoading && !configLoading">
   Genre:
   <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
@@ -6,6 +26,6 @@
     <option [value]="genre" *ngFor="let genre of genres">
       {{ genre }}
     </option>
-  </select>
-  <app-leaderboard></app-leaderboard>
-</div>
+  </select> 
+<-- </div>
+</div> -->
