@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors, AbstractControlOptions } from "@angular/forms";
 import fetchFromSpotify, { request } from "../../services/api";
 
 const AUTH_ENDPOINT =
@@ -14,17 +14,44 @@ const TOKEN_KEY = "whos-who-access-token";
 export class HomeComponent implements OnInit {
   constructor() {}
 
-  genres: String[] = ["House", "Alternative", "J-Rock", "R&B"];
-  selectedGenre: String = "";
+  genres: String[] = ["Rock",
+  "Rap",
+  "Pop",
+  "Country",
+  "Hip-Hop",
+  "Jazz",
+  "Alternative",
+  "K-pop",
+  "J-pop",
+  "Emo"];
+
   authLoading: boolean = false;
   configLoading: boolean = false;
   token: String = "";
 
+  checkDateValidator: ValidatorFn = (form: AbstractControl):  ValidationErrors |  null  =>{
+    let fromYearValue = form.get('yearsFrom')
+    let toYearValue = form.get('yearsTo')
+
+    if(!fromYearValue || !toYearValue) {
+      return null
+    }
+    if (fromYearValue.value > toYearValue.value) {
+      return { invalidRange: true }
+    }
+
+    return null
+  }
+
   homeGameForm: FormGroup = new FormGroup({
-    yearsFrom: new FormControl<number>(1999),
-    yearsTo: new FormControl<number>(2010),
+    yearsFrom: new FormControl<number>(1999, [Validators.required, Validators.min(1500), Validators.max(2024)]),
+    yearsTo: new FormControl<number>(2010, [Validators.required, Validators.min(1500), Validators.max(2024)]),
     selectedGenre: new FormControl<string>("rock"),
-  })
+  },
+   {validators: [this.checkDateValidator]},
+  );
+
+
 
   ngOnInit(): void {
     this.authLoading = true;
@@ -35,7 +62,7 @@ export class HomeComponent implements OnInit {
         console.log("Token found in localstorage");
         this.authLoading = false;
         this.token = storedToken.value;
-        this.loadGenres(storedToken.value);
+        this.configLoading=false;
         return;
       }
     }
@@ -48,42 +75,13 @@ export class HomeComponent implements OnInit {
       localStorage.setItem(TOKEN_KEY, JSON.stringify(newToken));
       this.authLoading = false;
       this.token = newToken.value;
-      this.loadGenres(newToken.value);
+      this.configLoading = false;
     });
   }
 
-  loadGenres = async (t: any) => {
-    this.configLoading = true;
-
-    // #################################################################################
-    // DEPRECATED!!! Use only for example purposes
-    // DO NOT USE the recommendations endpoint in your application
-    // Has been known to cause 429 errors
-    // const response = await fetchFromSpotify({
-    //   token: t,
-    //   endpoint: "recommendations/available-genre-seeds",
-    // });
-    // console.log(response);
-    // #################################################################################
-    
-    this.genres = [
-      "rock",
-      "rap",
-      "pop",
-      "country",
-      "hip-hop",
-      "jazz",
-      "alternative",
-      "j-pop",
-      "k-pop",
-      "emo"
-    ]
-    this.configLoading = false;
-  };
-
-  setGenre(selectedGenre: any) {
-    this.selectedGenre = selectedGenre;
-    console.log(this.selectedGenre);
-    console.log(TOKEN_KEY);
+  testApi = (t: any) => {
+    fetchFromSpotify({token:t, endpoint:"search", params: {q:`year:${this.homeGameForm.controls["yearsFrom"].value}-${this.homeGameForm.controls["yearsTo"].value}%20genre:${this.homeGameForm.controls['selectedGenre'].value}&type=track`} })
+    .then((response) => console.log(response))
   }
+
 }
