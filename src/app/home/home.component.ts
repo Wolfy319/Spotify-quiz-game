@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
 import fetchFromSpotify, { request } from "../../services/api";
 
 const AUTH_ENDPOINT =
@@ -18,6 +19,11 @@ export class HomeComponent implements OnInit {
   authLoading: boolean = false;
   configLoading: boolean = false;
   token: String = "";
+
+  homeGameForm: FormGroup = new FormGroup({
+    years: new FormControl<string>("1999-2010"),
+    selectedGenre: new FormControl<string>("rock")
+  })
 
   ngOnInit(): void {
     this.authLoading = true;
