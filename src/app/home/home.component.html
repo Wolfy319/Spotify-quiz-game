@@ -10,20 +10,8 @@
   </select>
 </form>
 <app-button text="Play"></app-button>
-<app-button (click)="testApi(token)" text="Infinite Mode"></app-button>
+<app-button (click)="startGame(token)" text="Infinite Mode"></app-button>
+<ul>
+  <li *ngFor="let track of tracks">{{track.title}}</li>
+</ul>
 
-
-<!-- <h1>{{homeGameForm.controls['years'].value}}</h1>
-<h1>{{homeGameForm.controls['selectedGenre'].value}}</h1> -->
-
-
-<!-- <div *ngIf="authLoading || configLoading">Loading...</div>
-<div *ngIf="!authLoading && !configLoading">
-  Genre:
-  <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
-    <option [value]=""></option>
-    <option [value]="genre" *ngFor="let genre of genres">
-      {{ genre }}
-    </option>
-  </select>
-</div> -->

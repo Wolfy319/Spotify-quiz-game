@@ -1,10 +1,21 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors, AbstractControlOptions } from "@angular/forms";
 import fetchFromSpotify, { request } from "../../services/api";
+import { SettingsService } from "../services/settings.service";
+import { SongsService } from "../services/songs.service";
 
 const AUTH_ENDPOINT =
   "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
 const TOKEN_KEY = "whos-who-access-token";
+
+interface Track {
+	title: string
+	year: string
+	albumName: string
+	albumCoverUrl: string
+	artists: string[]
+	previewUrl: string
+}
 
 @Component({
   selector: "app-home",
@@ -12,7 +23,7 @@ const TOKEN_KEY = "whos-who-access-token";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(private songData: SongsService) {}
 
   genres: String[] = ["Rock",
   "Rap",
@@ -28,6 +39,7 @@ export class HomeComponent implements OnInit {
   authLoading: boolean = false;
   configLoading: boolean = false;
   token: String = "";
+  tracks: Track[] = [{title: "", year: "", albumName: "", albumCoverUrl: "", artists: [""], previewUrl: ""}]
 
   checkDateValidator: ValidatorFn = (form: AbstractControl):  ValidationErrors |  null  =>{
     let fromYearValue = form.get('yearsFrom')
@@ -54,6 +66,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.songData.currentTracks.subscribe((currentTracks) => this.tracks = currentTracks)
     this.authLoading = true;
     const storedTokenString = localStorage.getItem(TOKEN_KEY);
     if (storedTokenString) {
@@ -79,9 +92,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  testApi = (t: any) => {
-    fetchFromSpotify({token:t, endpoint:"search", params: {q:`year:${this.homeGameForm.controls["yearsFrom"].value}-${this.homeGameForm.controls["yearsTo"].value}%20genre:${this.homeGameForm.controls['selectedGenre'].value}&type=track`} })
-    .then((response) => console.log(response))
+  startGame = (t: any) => {
+    const from = this.homeGameForm.controls["yearsFrom"].value
+    const to = this.homeGameForm.controls["yearsTo"].value
+    const genre = this.homeGameForm.controls['selectedGenre'].value
+    this.songData.fetchTracks({token: t, params: {q:`year:${from}-${to}%20genre:${genre}&type=track`}})
   }
 
 }
