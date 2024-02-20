@@ -1,8 +1,11 @@
 <app-navbar></app-navbar>
-<p>game works!</p>
 
-<table *ngIf = "!hider">
-    <tr>
+<div class="head">
+    GAME
+</div>
+<body>
+<table *ngIf = "!hider" style="width:100%">
+    <tr style="text-align: center;">
         <th>options</th>
     </tr>
     <tr>
@@ -14,24 +17,30 @@
             </button>
         </td>
     </tr>
-
-    <button class="submit" (click)="onSubmit()" >Guess</button>
 </table>
+<div style="width: 100%" *ngIf="!hider">
+    <button class="submit" style= "align-self: center;" (click)="onSubmit()" >Guess</button>
+</div>
 
-<div *ngIf="hider">
+<div style="align-items: center; align-content: center; align-self:center; width:100% " *ngIf="hider">
 
     <div *ngIf="picked != correct['id']">
         <p>Incorrect</p>
     </div>
 
     <p>You picked: </p>
-    <div style="max-width: 400px;" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
-    <app-options [track]="choices[picked - 1]['info']"></app-options>
+    <div style="max-width: fit-content; margin:auto" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
+        <app-options [track]="choices[picked - 1]['info']"></app-options>
     </div>
+    
     <p>Correct Answer: </p>
+
+    <div style="margin: auto; max-width: fit-content;">
     <app-options [track]="correct['info']"></app-options>
+    </div>
 
     <button *ngIf="(rounds > round)" class="submit" (click)="nextGame()" >Next Round</button>
     <button *ngIf="(rounds <= round)" class="submit" routerLink="/gameover">Game Over</button>
 
 </div>
+</body>

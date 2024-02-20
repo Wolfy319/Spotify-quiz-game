@@ -15,3 +15,17 @@ button{
 .submit:hover{
     background-color: aqua;
 }
+.head{
+    font-size: 40px;
+    font-style: italic;
+    border-style: groove;
+    border-color: black;
+    border-width: 10px;
+    text-align: center;
+}
+
+body{
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
