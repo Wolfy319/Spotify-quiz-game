@@ -7,6 +7,8 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
+  hider: boolean = false;
+  correct: any;
   choices: any[] = [];
   current: number = 1;
   picked: number = 0;
@@ -18,13 +20,27 @@ export class GameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.buildGame();
+    console.log(this.correct["info"]);
+
+  }
+
+  buildGame(): void{
+    this.picked = 0;
+    this.correct = null;
+    this.choices = [];
     for(let i = 1; i <= this.options; i++){
-    this.choices.push({id: i, info: {album: {name: "hello", release_date_precision: 1980}, name: "Greetins", artist: {name: "Peter"}}});
-    }
+      this.choices.push({id: i, info: {album: {name: "hello", release_date_precision: 1980}, name: "Greetins", artist: {name: "Peter"}}});
+      }
+  
+      this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
   }
 
   nextGame(): void{
+    this.buildGame();
     this.current+=1;
+    this.hider = !this.hider;
+    console.log(this.current);
     
   }
 
@@ -34,6 +50,12 @@ export class GameComponent implements OnInit {
   }
 
   onSubmit(): void{
+    if(this.picked == 0){
+      throw "need to pick one.";
+    }
+    else{
+      this.hider = true;
+    }
 
   }
 

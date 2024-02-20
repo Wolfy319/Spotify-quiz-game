@@ -2,7 +2,7 @@
 <p>game works!</p>
 <app-leaderboard></app-leaderboard>
 
-<table>
+<table *ngIf = "!hider">
     <tr>
         <th>options</th>
     </tr>
@@ -18,3 +18,21 @@
 
     <button class="submit" (click)="onSubmit()" >Submit</button>
 </table>
+
+<div *ngIf="hider">
+
+    <div *ngIf="picked != correct['id']">
+        <p>Incorrect</p>
+    </div>
+
+    <p>You picked: </p>
+    <div style="max-width: 400px;" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
+    <app-options [track]="choices[picked - 1]['info']"></app-options>
+    </div>
+    <p>Correct Answer: </p>
+    <app-options [track]="correct['info']"></app-options>
+
+    <button class="submit" (click)="nextGame()" >Next Round</button>
+    <button class="submit" routerLink="/gameover">Game Over</button>
+
+</div>
