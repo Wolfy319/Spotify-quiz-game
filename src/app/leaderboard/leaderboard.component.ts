@@ -15,13 +15,11 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.leaderboardService.addScore({});
-    console.log(this.scores);
     this.sender.emit(this.scores);
   }
 
-  onPress(){
-    console.log("done");
-    this.leaderboardService.addScore({});
+  onPress(person: any){
+    this.leaderboardService.addScore(person);
   }
 
 
