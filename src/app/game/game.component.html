@@ -1,2 +1,20 @@
+<app-navbar></app-navbar>
 <p>game works!</p>
 <app-leaderboard></app-leaderboard>
+
+<table>
+    <tr>
+        <th>options</th>
+    </tr>
+    <tr>
+        <td *ngFor="let choice of choices">
+            <button class="button" [style.background-color]="picked==choice['id'] ? '#00ffb3' : 'white' " (click)="onPress(choice)">
+                <app-options [track]="choice['info']" [id]="choice['id']">
+
+                </app-options>
+            </button>
+        </td>
+    </tr>
+
+    <button class="submit" (click)="onSubmit()" >Submit</button>
+</table>

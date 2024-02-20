@@ -1,0 +1,6 @@
+div{
+    border-width: 10px;
+    border-style:outset ;
+    border-color: black;
+    padding: 10px;
+}

@@ -1,0 +1,16 @@
+button{
+    border-style: none;
+    padding:0px;
+    background-color: transparent;
+}
+.submit{
+    border-style: outset;
+    border-width: 5px;
+    border-color: black;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+.submit:hover{
+    background-color: aqua;
+}

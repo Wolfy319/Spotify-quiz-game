@@ -14,7 +14,6 @@ export class LeaderboardComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.leaderboardService.addScore({});
     this.sender.emit(this.scores);
   }
 
