@@ -1,6 +1,5 @@
 <app-navbar></app-navbar>
 <p>game works!</p>
-<app-leaderboard></app-leaderboard>
 
 <table *ngIf = "!hider">
     <tr>
@@ -16,7 +15,7 @@
         </td>
     </tr>
 
-    <button class="submit" (click)="onSubmit()" >Submit</button>
+    <button class="submit" (click)="onSubmit()" >Guess</button>
 </table>
 
 <div *ngIf="hider">
@@ -32,7 +31,7 @@
     <p>Correct Answer: </p>
     <app-options [track]="correct['info']"></app-options>
 
-    <button class="submit" (click)="nextGame()" >Next Round</button>
-    <button class="submit" routerLink="/gameover">Game Over</button>
+    <button *ngIf="(rounds > round)" class="submit" (click)="nextGame()" >Next Round</button>
+    <button *ngIf="(rounds <= round)" class="submit" routerLink="/gameover">Game Over</button>
 
 </div>

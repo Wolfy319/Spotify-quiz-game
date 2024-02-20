@@ -10,7 +10,7 @@ export class GameComponent implements OnInit {
   hider: boolean = false;
   correct: any;
   choices: any[] = [];
-  current: number = 1;
+  round: number = 1;
   picked: number = 0;
   @Input() rounds: number = 3;
   @Input() options: number = 3;
@@ -38,9 +38,9 @@ export class GameComponent implements OnInit {
 
   nextGame(): void{
     this.buildGame();
-    this.current+=1;
+    this.round+=1;
     this.hider = !this.hider;
-    console.log(this.current);
+    console.log(this.round);
     
   }
 

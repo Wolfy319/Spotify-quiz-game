@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { LeaderboardService } from '../services/leaderboard.service';
 
 @Component({
@@ -8,6 +8,9 @@ import { LeaderboardService } from '../services/leaderboard.service';
 })
 export class LeaderboardComponent implements OnInit {
   scores = this.leaderboardService.getScores();
+
+  @Input() hider: boolean = true;
+
   @Output() sender = new EventEmitter<any>;
   constructor(  private leaderboardService: LeaderboardService) {
 
