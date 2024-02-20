@@ -21,8 +21,9 @@ export class HomeComponent implements OnInit {
   token: String = "";
 
   homeGameForm: FormGroup = new FormGroup({
-    years: new FormControl<string>("1999-2010"),
-    selectedGenre: new FormControl<string>("rock")
+    yearsFrom: new FormControl<number>(1999),
+    yearsTo: new FormControl<number>(2010),
+    selectedGenre: new FormControl<string>("rock"),
   })
 
   ngOnInit(): void {
