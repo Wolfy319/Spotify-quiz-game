@@ -24,8 +24,15 @@ button{
     text-align: center;
 }
 
+.grid {
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+}
+
 body{
     align-content: center;
     align-items: center;
+    justify-content: center;
     text-align: center;
 }
