@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+html * {
+	font-family: sans-serif;
+	text-decoration: none;
+}
+
 .container {
 	display: flex;
 	flex-direction: column;
@@ -22,4 +27,8 @@
 
 .label {
 	font-size: 20px;
+}
+
+.grey {
+	background-color: rgb(197, 197, 197);
 }
