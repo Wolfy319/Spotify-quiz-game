@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { SettingsService } from "./settings.service";
 import fetchFromSpotify from "src/services/api";
 
 interface Track {

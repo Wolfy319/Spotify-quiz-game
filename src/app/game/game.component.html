@@ -9,7 +9,9 @@
         <button class="submit" (click)="playMusic()">Play</button>
     </div>
 
-
+    <ul>
+        <li *ngFor="let track of loadedRounds"><p *ngFor="let item of track">{{item.title}}</p></li>
+    </ul>
 <table *ngIf = "!hider" style="width:100%">
     <tr style="text-align: center;">
         <th>options</th>

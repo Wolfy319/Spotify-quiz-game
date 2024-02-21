@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, Valid
 import fetchFromSpotify, { request } from "../../services/api";
 import { SettingsService } from "../services/settings.service";
 import { SongsService } from "../services/songs.service";
-
+import { Router } from "@angular/router";
 const AUTH_ENDPOINT =
   "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
 const TOKEN_KEY = "whos-who-access-token";
@@ -23,7 +23,7 @@ interface Track {
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor(private songData: SongsService, private settingsData: SettingsService) {}
+  constructor(private songData: SongsService, private settingsData: SettingsService, private router: Router) {}
 
   genres: String[] = ["Rock",
   "Rap",
@@ -102,5 +102,6 @@ export class HomeComponent implements OnInit {
     const to = this.homeGameForm.controls["yearsTo"].value
     const genre = this.homeGameForm.controls['selectedGenre'].value
     this.songData.getRounds({token: t, params: {q:`year:${from}-${to}%20genre:${genre}&type=track`, limit: (this.numChoices * this.numRounds), offset: Math.floor(Math.random() * 1000)}, numChoices: this.numChoices})
+    this.router.navigateByUrl('/game')
   }
 }

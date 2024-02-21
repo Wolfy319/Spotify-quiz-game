@@ -1,26 +1,40 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import {Howl, Howler} from 'howler';
+import { SongsService } from '../services/songs.service';
+
+interface Track {
+	title: string
+	year: string
+	albumName: string
+	albumCoverUrl: string
+	artists: string[]
+	previewUrl: string
+}
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
+
+
 export class GameComponent implements OnInit {
+  constructor(private songData: SongsService) { }
 
   @Input() regularMode: boolean = true; 
   hider: boolean = false;
   correct: any;
   @Output() score: number = 0;
   choices: any[] = [];
-  round: number = 1;
+  round: number = 0;
   picked: number = 0;
   end: boolean = false;
   @Input() rounds: number = 3;
   @Input() options: number = 3;
 
+  loadedRounds: Track[][] = []
+
   @Output() choose = new EventEmitter();
 
-  constructor() { }
 
   emitter(){
     let mode = this.regularMode ? "Regular": "Infinite";
@@ -29,28 +43,23 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.songData.currentRounds.subscribe((currentRounds) => {this.loadedRounds = currentRounds})
     this.end = false;
     this.buildGame();
-
   }
 
   buildGame(): void{
     this.picked = 0;
     this.correct = null;
-    this.choices = [];
-    for(let i = 1; i <= this.options; i++){
-      this.choices.push({id: i, info: {
-        title: "pizza",
-        year: "2019",
-        albumName: "italian",
-        albumCoverUrl: "url",
-        artists: ["hawlla","smooth"],
-        previewUrl: "hello"}});
-      }
-  
+    for(let i = 0; i < this.options; i++){
+      let info: any =  this.loadedRounds[this.round]
+      console.log(this.loadedRounds)
+      this.choices.push({id: i + 1, info: info});
       this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
       console.log(this.correct["id"]);
   }
+  console.log(this.choices)
+}
 
   playMusic(){
     var sound = new Howl({
