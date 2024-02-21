@@ -1,7 +1,8 @@
 .link-button{
     box-sizing: border-box;
-    width: 265px;
-    height: 81px;
+    width: 150px;
+    height: 50px;
+    margin: 0 0 15px;
     cursor: pointer;
     background: #FFFFFF;
     border: 1px solid #000000;
