@@ -9,10 +9,6 @@ import { LeaderboardService } from '../services/leaderboard.service';
 export class LeaderboardComponent implements OnInit {
   scores = this.leaderboardService.getScores();
 
-  @Input() player: any = {name: 'hello', score: 150, type: 'regular'};
-
-  @Input() hider: boolean = true;
-
   @Output() sender = new EventEmitter<any>;
   constructor(  private leaderboardService: LeaderboardService) {
 
@@ -22,9 +18,6 @@ export class LeaderboardComponent implements OnInit {
     this.sender.emit(this.scores);
   }
 
-  onPress(person: any){
-    this.leaderboardService.addScore(person);
-  }
 
 
 
