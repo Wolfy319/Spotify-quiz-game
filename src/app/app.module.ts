@@ -10,11 +10,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { GameOverComponent } from './game-over/game-over.component';
+import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
+import { GameComponent } from "./game/game.component";
+import { OptionsComponent } from './game/options/options.component';
+import { LeaderboardPageComponent } from './leaderboard-page/leaderboard-page.component';
 
 const routes: Routes = [{ path: "", component: HomeComponent }];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ButtonComponent, NavbarComponent, ConfigurationComponent, GameOverComponent],
+  declarations: [AppComponent, LeaderboardComponent, GameComponent, HomeComponent, ButtonComponent, NavbarComponent, ConfigurationComponent, GameOverComponent, OptionsComponent, LeaderboardPageComponent],
   imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes), ReactiveFormsModule, AppRoutingModule
   ],
   providers: [],

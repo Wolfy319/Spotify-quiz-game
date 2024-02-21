@@ -1,0 +1,8 @@
+div{
+    border-width: 10px;
+    border-style:outset ;
+    border-color: black;
+    padding: 10px;
+    max-width: fit-content;
+    text-align: left;
+}

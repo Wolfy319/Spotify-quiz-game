@@ -1,0 +1,31 @@
+button{
+    border-style: none;
+    padding:0px;
+    background-color: transparent;
+}
+.submit{
+    border-style: outset;
+    border-width: 5px;
+    border-color: black;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 16px;
+    margin:15px;
+}
+.submit:hover{
+    background-color: aqua;
+}
+.head{
+    font-size: 40px;
+    font-style: italic;
+    border-style: groove;
+    border-color: black;
+    border-width: 10px;
+    text-align: center;
+}
+
+body{
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
