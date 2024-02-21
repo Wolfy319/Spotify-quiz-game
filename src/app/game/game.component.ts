@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import {Howl, Howler} from 'howler';
 import { SongsService } from '../services/songs.service';
-
 import { SettingsService } from '../services/settings.service';
+import { Router } from '@angular/router';
+import { GameService } from '../services/game.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface Track {
@@ -21,9 +22,10 @@ interface Track {
 
 
 export class GameComponent implements OnInit {
-  constructor(private songData: SongsService, private settingData: SettingsService) { }
+  constructor(private songData: SongsService, private settingsData: SettingsService, private router: Router, private gameData: GameService, private settingData: SettingsService) { }
 
-  @Input() regularMode: boolean = true; 
+  mode: string = "Regular"
+  regularMode: boolean = true; 
   hider: boolean = false;
   correct: any;
   sound: Howl = new Howl({src: [""]});
@@ -34,21 +36,25 @@ export class GameComponent implements OnInit {
   picked: number = 0;
   end: boolean = false;
   rounds: number = 3;
-  options: number = 3;
+  options: number = 4;
 
   loadedRounds: Track[][] = []
 
   @Output() choose = new EventEmitter();
 
 
-  emitter(){
+  endGame(){
     this.sound.stop();
-    let mode = this.regularMode ? "Regular": "Infinite";
-    let fin = {score: this.score, type: mode};
-    this.choose.emit(fin);
+    this.gameData.updateScore(this.score)
+    this.gameData.updateMode(this.mode)
+    console.log(this.score)
+    this.router.navigateByUrl('/gameover')
   }
 
   ngOnInit(): void {
+    this.settingsData.currentNumRounds.subscribe((numRounds) => this.rounds = numRounds)
+    this.settingsData.currentNumSongChoices.subscribe((numSongs) => this.options = numSongs)
+    this.gameData.currentMode.subscribe((modeData) => {this.mode = modeData; this.regularMode = modeData === "Regular" ? true: false})
     this.settingData.currentVolume.subscribe((x)=> {this.volume = x;});
     this.songData.currentRounds.subscribe((currentRounds) => {
       this.loadedRounds = currentRounds;
@@ -64,7 +70,7 @@ export class GameComponent implements OnInit {
     this.correct = null;
     this.choices = [];
     for(let i = 0; i < this.options; i++){
-      let info: any =  this.loadedRounds[this.round][i];
+      let info: any =  this.loadedRounds[this.round][i]
       this.choices.push({id: i + 1, info: info});
       this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
     }
@@ -114,10 +120,10 @@ export class GameComponent implements OnInit {
       this.hider = true;
     }
     if(this.regularMode){
-      if(this.rounds > this.round + 1){
+      if(this.rounds > this.round + 1 + 1){
         this.end = false;
       }
-      else if(this.rounds <= this.round + 1){
+      else if(this.rounds <= this.round + 1 + 1){
         this.end = true;
       }
     }
