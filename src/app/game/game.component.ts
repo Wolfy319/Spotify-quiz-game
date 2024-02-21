@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import {Howl, Howler} from 'howler';
 import { SongsService } from '../services/songs.service';
+import { SettingsService } from '../services/settings.service';
+import { Router } from '@angular/router';
+import { GameService } from '../services/game.service';
 
 interface Track {
 	title: string
@@ -18,9 +21,10 @@ interface Track {
 
 
 export class GameComponent implements OnInit {
-  constructor(private songData: SongsService) { }
+  constructor(private songData: SongsService, private settingsData: SettingsService, private router: Router, private gameData: GameService) { }
 
-  @Input() regularMode: boolean = true; 
+  mode: string = "Regular"
+  regularMode: boolean = true; 
   hider: boolean = false;
   correct: any;
   @Output() score: number = 0;
@@ -28,21 +32,25 @@ export class GameComponent implements OnInit {
   round: number = 0;
   picked: number = 0;
   end: boolean = false;
-  @Input() rounds: number = 3;
-  @Input() options: number = 3;
+  rounds: number = 3;
+  options: number = 4;
 
   loadedRounds: Track[][] = []
 
   @Output() choose = new EventEmitter();
 
 
-  emitter(){
-    let mode = this.regularMode ? "Regular": "Infinite";
-    let fin = {score: this.score, type: mode};
-    this.choose.emit(fin);
+  endGame(){
+    this.gameData.updateScore(this.score)
+    this.gameData.updateMode(this.mode)
+    console.log(this.score)
+    this.router.navigateByUrl('/gameover')
   }
 
   ngOnInit(): void {
+    this.settingsData.currentNumRounds.subscribe((numRounds) => this.rounds = numRounds)
+    this.settingsData.currentNumSongChoices.subscribe((numSongs) => this.options = numSongs)
+    this.gameData.currentMode.subscribe((modeData) => {this.mode = modeData; this.regularMode = modeData === "Regular" ? true: false})
     this.songData.currentRounds.subscribe((currentRounds) => {
       this.loadedRounds = currentRounds;
       this.buildGame()
@@ -56,7 +64,6 @@ export class GameComponent implements OnInit {
     this.choices = []
     for(let i = 0; i < this.options; i++){
       let info: any =  this.loadedRounds[this.round][i]
-      console.log(info.artists)
       this.choices.push({id: i + 1, info: info});
       this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
   }
@@ -97,10 +104,10 @@ export class GameComponent implements OnInit {
       this.hider = true;
     }
     if(this.regularMode){
-      if(this.rounds > this.round){
+      if(this.rounds > this.round + 1){
         this.end = false;
       }
-      else if(this.rounds <= this.round){
+      else if(this.rounds <= this.round + 1){
         this.end = true;
       }
     }
