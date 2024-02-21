@@ -6,7 +6,7 @@
 <body>
 
     <div>
-        <button class="submit" (click)="playMusic()">Play</button>
+        <button class="submit" style = "font-size: 50px;" (click)="playMusic()">{{sound.playing() ? 'Stop' : 'Play'}}</button>
     </div>
 <table *ngIf = "!hider" style="width:100%">
     <tr style="text-align: center;">
