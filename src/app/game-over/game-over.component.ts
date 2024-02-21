@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SongsService } from '../services/songs.service';
 
 @Component({
   selector: 'app-game-over',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameOverComponent implements OnInit {
 
-  constructor() { }
+  constructor(private songData: SongsService) { }
 
   ngOnInit(): void {
+
   }
 
 }
