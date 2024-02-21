@@ -69,6 +69,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.songData.clearTracks()
     this.songData.currentRounds.subscribe((currentRounds) => this.rounds = currentRounds)
     this.settingsData.currentNumRounds.subscribe((numRounds) => this.numRounds = numRounds)
     this.settingsData.currentNumSongChoices.subscribe((numChoices) => this.numChoices = numChoices)

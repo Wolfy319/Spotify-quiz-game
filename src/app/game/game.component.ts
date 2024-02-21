@@ -43,22 +43,23 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.songData.currentRounds.subscribe((currentRounds) => {this.loadedRounds = currentRounds});
+    this.songData.currentRounds.subscribe((currentRounds) => {
+      this.loadedRounds = currentRounds;
+      this.buildGame()
+    })
     this.end = false;
-    this.buildGame();
   }
 
   buildGame(): void{
     this.picked = 0;
     this.correct = null;
+    this.choices = []
     for(let i = 0; i < this.options; i++){
-      let info: any =  this.loadedRounds[this.round]
-      console.log(this.loadedRounds)
+      let info: any =  this.loadedRounds[this.round][i]
+      console.log(info.artists)
       this.choices.push({id: i + 1, info: info});
       this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
-      console.log(this.correct["id"]);
   }
-  console.log(this.choices)
 }
 
   playMusic(){

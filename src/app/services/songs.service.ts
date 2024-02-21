@@ -25,6 +25,10 @@ export class SongsService {
 	private roundsSource = new BehaviorSubject<Track[][]>([])
 	currentRounds = this.roundsSource.asObservable()
 	
+	clearTracks(): void {
+		this.roundsSource.next([])
+	}
+
 	getRounds({token, params, numChoices}: any): void {
 		this.fetchTracks({token:token, params:params})
 		.then((tracks) => {
@@ -49,7 +53,7 @@ export class SongsService {
 					year: track.album.release_date,
 					albumName: track.album.name,
 					albumCoverUrl: track.album.images[0],
-					artists: track.album.artists,
+					artists: track.album.artists.map((artistObj: any) => artistObj.name),
 					previewUrl: track.preview_url
 				})
 				
