@@ -23,7 +23,7 @@ interface Track {
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor(private songData: SongsService) {}
+  constructor(private songData: SongsService, private settingsData: SettingsService) {}
 
   genres: String[] = ["Rock",
   "Rap",
@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit {
   configLoading: boolean = false;
   token: String = "";
   tracks: Track[] = [{title: "", year: "", albumName: "", albumCoverUrl: "", artists: [""], previewUrl: ""}]
+  rounds: Track[][] = []
+  numRounds: number = 0
+  numChoices: number = 0
 
   checkDateValidator: ValidatorFn = (form: AbstractControl):  ValidationErrors |  null  =>{
     let fromYearValue = form.get('yearsFrom')
@@ -66,7 +69,9 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.songData.currentTracks.subscribe((currentTracks) => this.tracks = currentTracks)
+    this.songData.currentRounds.subscribe((currentRounds) => this.rounds = currentRounds)
+    this.settingsData.currentNumRounds.subscribe((numRounds) => this.numRounds = numRounds)
+    this.settingsData.currentNumSongChoices.subscribe((numChoices) => this.numChoices = numChoices)
     this.authLoading = true;
     const storedTokenString = localStorage.getItem(TOKEN_KEY);
     if (storedTokenString) {
@@ -96,7 +101,7 @@ export class HomeComponent implements OnInit {
     const from = this.homeGameForm.controls["yearsFrom"].value
     const to = this.homeGameForm.controls["yearsTo"].value
     const genre = this.homeGameForm.controls['selectedGenre'].value
-    this.songData.fetchTracks({token: t, params: {q:`year:${from}-${to}%20genre:${genre}&type=track`}})
+    this.songData.getRounds({token: t, params: {q:`year:${from}-${to}%20genre:${genre}&type=track`, limit: (this.numChoices * this.numRounds), offset: Math.floor(Math.random() * 1000)}, numChoices: this.numChoices})
   }
 
 }

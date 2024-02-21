@@ -36,6 +36,5 @@ export class ConfigurationComponent implements OnInit {
     this.settingsData.updateVolume(this.settingsFormGroup.controls['volume'].value)
     this.settingsData.updateNumRounds(this.settingsFormGroup.controls['rounds'].value)
     this.settingsData.updateNumChoices(this.settingsFormGroup.controls['songChoices'].value)
-    console.log(this.settingsData.currentVolume)
   }
 }

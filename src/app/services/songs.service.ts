@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { SettingsService } from "./settings.service";
 import fetchFromSpotify from "src/services/api";
 
 interface Track {
@@ -11,21 +12,36 @@ interface Track {
 	previewUrl: string
 }
 
+interface Round {
+	tracks: Track[]
+}
+
+
 @Injectable({
 	providedIn: 'root'
 })
 
+
 export class SongsService {
-	// used to store fetched tracks for an individual round
-	private trackListSource = new BehaviorSubject<Track[]>([{title: "", year: "", albumName: "", albumCoverUrl: "", artists: [""], previewUrl: ""}])
-	currentTracks = this.trackListSource.asObservable()
+	private roundsSource = new BehaviorSubject<Track[][]>([])
+	currentRounds = this.roundsSource.asObservable()
+	
+	getRounds({token, params, numChoices}: any): void {
+		this.fetchTracks({token:token, params:params})
+		.then((tracks) => {
+			let rounds = []
+			for(let i = 0; i < tracks.length; i += numChoices) { 
+				rounds.push(tracks.slice(i, i + numChoices))
+			}
+			return rounds
+		})
+		.then((rounds) => {
+			this.roundsSource.next(rounds)
+		})
+	}
 
-	// // used to store tracks for an individual round
-	// private loadedChoicesSource = new BehaviorSubject<Track[]>([{title: "", year: "", albumName: "", albumCoverUrl: "", artists: [""], previewUrl: ""}])
-	// currentLoadedChoices = this.loadedChoicesSource.asObservable()
-
-	fetchTracks({token, params}: any): void {
-		fetchFromSpotify({token:token, endpoint:"search", params: params})
+	fetchTracks = ({token, params}: any) => {
+		return fetchFromSpotify({token:token, endpoint:"search", params: params})
 		.then((response) => {
 			let tracks: Track[] = []
 			for(let track of response.tracks.items) {
@@ -41,9 +57,5 @@ export class SongsService {
 			}
 			return tracks
 		})
-		.then(tracks => this.trackListSource.next(tracks))
-		.catch((err) => alert(err.error))
 	}
-
-
 }

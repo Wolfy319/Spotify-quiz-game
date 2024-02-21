@@ -12,6 +12,6 @@
 <app-button text="Play"></app-button>
 <app-button (click)="startGame(token)" text="Infinite Mode"></app-button>
 <ul>
-  <li *ngFor="let track of tracks">{{track.title}}</li>
+  <li *ngFor="let track of rounds"><p *ngFor="let item of track">{{item.title}}</p></li>
 </ul>
 
