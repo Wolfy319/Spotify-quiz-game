@@ -15,6 +15,9 @@ export class SettingsService {
 	private numSongChoicesSource = new BehaviorSubject<number>(4)
 	currentNumSongChoices = this.numSongChoicesSource.asObservable()
 
+	private modeSource = new BehaviorSubject<string>("Regular")
+	currentMode = this.modeSource.asObservable()
+
 	updateVolume(volume: number) {
 		this.volumeSource.next(volume)
 	}
@@ -25,5 +28,9 @@ export class SettingsService {
 
 	updateNumChoices(numChoices: number) {
 		this.numSongChoicesSource.next(numChoices)
+	}
+
+	updateMode(mode: string) {
+		this.modeSource.next(mode)
 	}
 }
