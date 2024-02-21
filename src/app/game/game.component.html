@@ -6,7 +6,7 @@
 <body>
 
     <div>
-        <button class="submit" (click)="playMusic()">{{correct["info"]["previewUrl"]}}</button>
+        <button class="submit" (click)="playMusic()">Play</button>
     </div>
 
 
@@ -45,8 +45,8 @@
     <app-options [track]="correct['info']"></app-options>
     </div>
 
-    <button *ngIf="(rounds > round)" class="submit" (click)="nextGame()" >Next Round</button>
-    <button *ngIf="(rounds <= round)" class="submit" routerLink="/gameover">Game Over</button>
+    <button *ngIf="(!end)" class="submit" (click)="nextGame()" >Next Round</button>
+    <button *ngIf="(end)" class="submit" routerLink="/gameover">Game Over</button>
 
 </div>
 </body>

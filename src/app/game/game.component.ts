@@ -7,12 +7,14 @@ import {Howl, Howler} from 'howler';
 })
 export class GameComponent implements OnInit {
 
+  @Input() regularMode: boolean = true; 
   hider: boolean = false;
   correct: any;
   @Output() score: number = 0;
   choices: any[] = [];
   round: number = 1;
   picked: number = 0;
+  end: boolean = false;
   @Input() rounds: number = 3;
   @Input() options: number = 3;
 
@@ -21,6 +23,7 @@ export class GameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.end = false;
     this.buildGame();
 
   }
@@ -40,6 +43,7 @@ export class GameComponent implements OnInit {
       }
   
       this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
+      console.log(this.correct["id"]);
   }
 
   playMusic(){
@@ -60,7 +64,9 @@ export class GameComponent implements OnInit {
     if(this.picked == this.correct["id"]){
     this.score += 1;
     }
-    console.log(this.score);
+    else if(!this.regularMode){
+      this.end = true;
+    }
   }
 
   onPress(picked: any){
@@ -68,13 +74,25 @@ export class GameComponent implements OnInit {
   }
 
   onSubmit(): void{
-    this.addScore();
     if(this.picked == 0){
       throw "need to pick one.";
     }
     else{
       this.hider = true;
     }
+    if(this.regularMode){
+      if(this.rounds > this.round){
+        this.end = false;
+      }
+      else if(this.rounds <= this.round){
+        this.end = true;
+      }
+    }
+    else{
+      this.end = false;
+    }
+    this.addScore();
+
 
   }
 
