@@ -22,6 +22,12 @@ export class GameComponent implements OnInit {
 
   constructor() { }
 
+  emitter(){
+    let mode = this.regularMode ? "Regular": "Infinite";
+    let fin = {score: this.score, type: mode};
+    this.choose.emit(fin);
+  }
+
   ngOnInit(): void {
     this.end = false;
     this.buildGame();

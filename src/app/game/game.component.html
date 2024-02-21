@@ -46,7 +46,7 @@
     </div>
 
     <button *ngIf="(!end)" class="submit" (click)="nextGame()" >Next Round</button>
-    <button *ngIf="(end)" class="submit" routerLink="/gameover">Game Over</button>
+    <button *ngIf="(end)" class="submit" (click)="emitter()" routerLink="/gameover">Game Over</button>
 
 </div>
 </body>
