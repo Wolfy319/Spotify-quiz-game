@@ -1,6 +1,6 @@
 nav {
 	width: 100%;
-	background-color: grey;
+	background-color: rgb(196, 196, 196);
 	display: flex;
 	justify-content: center;
 }
@@ -8,6 +8,13 @@ nav {
 .navbar {
 	width: 100%
 }
+
 a {
 	margin: 1vw;
+	text-decoration: none;
+	color:black;
+}
+
+a:hover {
+	color:rgb(88, 88, 88);
 }
