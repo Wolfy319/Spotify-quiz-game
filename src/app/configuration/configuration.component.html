@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<div>
-    <form [formGroup]="settingsFormGroup">
+<div class="container">
+    <form [formGroup]="settingsFormGroup" class="form-box">
         <label for="volume">Volume:</label>
         <input type="range" name="volume" formControlName="volume"/>
         <label for="rounds">Number of Rounds:</label>
@@ -8,4 +8,6 @@
         <label for="songChoices">Number of song choices per round:</label>
         <input type="number" name="songChoices" formControlName="songChoices"/>
     </form>
+    <button (click)="updateSettings()">Save settings</button>
+
 </div>

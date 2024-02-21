@@ -1,30 +1,20 @@
 <app-navbar></app-navbar>
-<h1>Who's Who</h1>
-<form [formGroup]="homeGameForm">
-  <label for="years">Enter a range of years (ex: 1999-2010)</label>
-  <input type="number" name="years" formControlName="yearsFrom" placeholder="From..." /> 
-  <input type="number"name="years" formControlName="yearsTo" placeholder="To..."/>
-  <label for="genre">Select a genre</label>
-  <select name="genre" formControlName="selectedGenre">
-    <option *ngFor="let genre of genres">{{genre}}</option>
-  </select>
-</form>
-<app-button text="Play" routerLink="/game"></app-button>
-<app-button (click)="testApi(token)" text="Infinite Mode"></app-button>
-
-
-<!-- <h1>{{homeGameForm.controls['years'].value}}</h1>
-<h1>{{homeGameForm.controls['selectedGenre'].value}}</h1> -->
-
-
-<!-- <div *ngIf="authLoading || configLoading">Loading...</div>
-<div *ngIf="!authLoading && !configLoading">
-  Genre:
-  <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
-    <option [value]=""></option>
-    <option [value]="genre" *ngFor="let genre of genres">
-      {{ genre }}
-    </option>
-  </select> 
-<-- </div>
-</div> -->
+<div class="container">
+  <h1>Who's Who</h1>
+  <form [formGroup]="homeGameForm" class="form-box">
+    <label for="years">Enter a range of years (ex: 1999-2010)</label>
+    <div>
+      <input type="number" name="years" formControlName="yearsFrom"/> 
+      <input type="number"name="years" formControlName="yearsTo"/>
+    </div>
+    <label for="genre">Select a genre</label>
+    <select name="genre" formControlName="selectedGenre">
+      <option *ngFor="let genre of genres">{{genre}}</option>
+    </select>
+  </form>
+  <app-button (click)="startGame(token, 'Regular')" text="Play"></app-button>
+  <app-button (click)="startGame(token, 'Infinite')" text="Infinite Mode"></app-button>
+  <ul>
+    <li *ngFor="let track of rounds"><p *ngFor="let item of track">{{item.title}}</p></li>
+  </ul>
+</div>
