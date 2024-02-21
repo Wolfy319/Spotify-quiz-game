@@ -1,3 +1,11 @@
-<p>game-over works!</p>
 <a routerLink="/">Return home</a>
-<app-leaderboard [hider]="false"></app-leaderboard>
+<h1>You Scored: </h1>
+<h2>{{score}} Points</h2>
+<form [formGroup]="leaderboardForm">
+	<label for="name">Enter your name to submit your score:</label>
+	<input type="text" formControlName="name">
+</form>
+
+<button *ngIf="!submitted" (click)="onPress()">press</button>
+<button *ngIf="submitted" routerLink="/">Home</button>
+<app-leaderboard ></app-leaderboard>
