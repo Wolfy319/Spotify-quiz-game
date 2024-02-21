@@ -9,7 +9,7 @@
     <option *ngFor="let genre of genres">{{genre}}</option>
   </select>
 </form>
-<app-button text="Play"></app-button>
+<app-button text="Play" routerLink="/game"></app-button>
 <app-button (click)="testApi(token)" text="Infinite Mode"></app-button>
 
 
@@ -25,5 +25,6 @@
     <option [value]="genre" *ngFor="let genre of genres">
       {{ genre }}
     </option>
-  </select>
+  </select> 
+<-- </div>
 </div> -->

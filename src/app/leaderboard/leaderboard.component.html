@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Mode</th>
+    </tr>
+    <tr class="leaderboard" *ngFor="let score of scores">
+        <td>{{score["name"]}}</td>
+        <td>{{score["score"]}}</td>
+        <td>{{score["type"]}}</td>
+
+    </tr>
+    <button *ngIf="!hider" (click)="onPress(player)">press</button>
+</table>

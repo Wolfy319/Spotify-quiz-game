@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="head">
+    GAME
+</div>
+<body>
+
+    <div>
+        <button class="submit" (click)="playMusic()">Play</button>
+    </div>
+
+
+<table *ngIf = "!hider" style="width:100%">
+    <tr style="text-align: center;">
+        <th>options</th>
+    </tr>
+    <tr>
+        <td *ngFor="let choice of choices">
+            <button class="button" [style.background-color]="picked==choice['id'] ? '#00ffb3' : 'white' " (click)="onPress(choice)">
+                <app-options [track]="choice['info']" [id]="choice['id']">
+
+                </app-options>
+            </button>
+        </td>
+    </tr>
+</table>
+<div style="width: 100%" *ngIf="!hider">
+    <button class="submit" style= "align-self: center;" (click)="onSubmit()" >Guess</button>
+</div>
+
+<div style="align-items: center; align-content: center; align-self:center; width:100% " *ngIf="hider">
+
+    <div *ngIf="picked != correct['id']">
+        <p>Incorrect</p>
+    </div>
+
+    <p>You picked: </p>
+    <div style="max-width: fit-content; margin:auto" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
+        <app-options [track]="choices[picked - 1]['info']"></app-options>
+    </div>
+    
+    <p>Correct Answer: </p>
+
+    <div style="margin: auto; max-width: fit-content;">
+    <app-options [track]="correct['info']"></app-options>
+    </div>
+
+    <button *ngIf="(!end)" class="submit" (click)="nextGame()" >Next Round</button>
+    <button *ngIf="(end)" class="submit" (click)="emitter()" routerLink="/gameover">Game Over</button>
+
+</div>
+</body>
