@@ -8,7 +8,6 @@ export class LeaderboardService {
   constructor() { }
 
   addScore(score: any){
-    this.scores.push({name: "matthew", score: 500, type:"infinite"});
     this.scores.push(score);
     this.scores.sort((a,b)=> (a["score"] < b["score"] ? 1:-1));
   }

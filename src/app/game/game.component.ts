@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-
+import {Howl, Howler} from 'howler';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -9,6 +9,7 @@ export class GameComponent implements OnInit {
 
   hider: boolean = false;
   correct: any;
+  @Output() score: number = 0;
   choices: any[] = [];
   round: number = 1;
   picked: number = 0;
@@ -21,7 +22,6 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildGame();
-    console.log(this.correct["info"]);
 
   }
 
@@ -30,26 +30,45 @@ export class GameComponent implements OnInit {
     this.correct = null;
     this.choices = [];
     for(let i = 1; i <= this.options; i++){
-      this.choices.push({id: i, info: {album: {name: "hello", release_date_precision: 1980}, name: "Greetins", artist: {name: "Peter"}}});
+      this.choices.push({id: i, info: {
+        title: "pizza",
+        year: "2019",
+        albumName: "italian",
+        albumCoverUrl: "url",
+        artists: ["hawlla","smooth"],
+        previewUrl: "hello"}});
       }
   
       this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
   }
 
+  playMusic(){
+    var sound = new Howl({
+      src:[this.correct['info']['previewUrl']]
+    });
+    console.log(sound);
+    sound.play()
+  }
   nextGame(): void{
     this.buildGame();
     this.round+=1;
     this.hider = !this.hider;
-    console.log(this.round);
     
+  }
+
+  addScore(){
+    if(this.picked == this.correct["id"]){
+    this.score += 1;
+    }
+    console.log(this.score);
   }
 
   onPress(picked: any){
     this.picked = picked['id'];
-    console.log(this.picked);
   }
 
   onSubmit(): void{
+    this.addScore();
     if(this.picked == 0){
       throw "need to pick one.";
     }
