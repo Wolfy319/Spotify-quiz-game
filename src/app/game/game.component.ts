@@ -43,7 +43,7 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.songData.currentRounds.subscribe((currentRounds) => {this.loadedRounds = currentRounds})
+    this.songData.currentRounds.subscribe((currentRounds) => {this.loadedRounds = currentRounds});
     this.end = false;
     this.buildGame();
   }
