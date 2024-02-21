@@ -101,7 +101,6 @@ export class HomeComponent implements OnInit {
     const from = this.homeGameForm.controls["yearsFrom"].value
     const to = this.homeGameForm.controls["yearsTo"].value
     const genre = this.homeGameForm.controls['selectedGenre'].value
-    this.settingsData.updateMode(mode)
     this.songData.getRounds({token: t, params: {q:`year:${from}-${to}%20genre:${genre}&type=track`, limit: (this.numChoices * this.numRounds), offset: Math.floor(Math.random() * 1000)}, numChoices: this.numChoices})
   }
 }
