@@ -1,12 +1,23 @@
 <app-navbar></app-navbar>
-<div class="container grey">
+<div class="container grey config-box">
     <form [formGroup]="settingsFormGroup" class="form-box">
         <label for="volume" class="large-label">Volume:</label>
-        <input id="volume-bar" type="range" name="volume" formControlName="volume"/>
-        <label for="rounds" class="large-label">Number of Rounds:</label>
-        <input type="number" name="rounds" formControlName="rounds"/>
-        <label for="songChoices" class="large-label">Number of song choices per round:</label>
-        <input type="number" name="songChoices" formControlName="songChoices"/>
+        <div class="input-container">
+            <input id="volume-bar" type="range" name="volume" formControlName="volume" (mouseup)="updateVolume()"/>
+            <div (click)="testSound()"  class="icon">
+                <i class="fa fa-music" id="volum-icon"></i>
+            </div>
+        </div>
+        <label for="rounds" class="large-label">Game length:</label>
+        <div class="input-container">
+            <input type="number" name="rounds" formControlName="rounds" class="pip"/>
+            <p class="description">Rounds</p>
+        </div>
+        <label for="songChoices" class="large-label">Choices per round:</label>
+        <div class="input-container">
+            <input type="number" name="songChoices" formControlName="songChoices" class="pip"/>
+            <p class="description">Songs <i id="subtext">(score will increase with more choices)</i></p>
+        </div>
     </form>
     <button class="appbutton" (click)="updateSettings()" text="Save settings">Save Settings</button>
 </div>
