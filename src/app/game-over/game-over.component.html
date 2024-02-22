@@ -8,4 +8,4 @@
 
 <button *ngIf="!submitted" (click)="onPress()">press</button>
 <button *ngIf="submitted" routerLink="/">Home</button>
-<app-leaderboard ></app-leaderboard>
+<app-leaderboard [Regular]="mode == 'Regular' ? true: false"></app-leaderboard>

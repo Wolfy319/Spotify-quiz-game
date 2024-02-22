@@ -4,7 +4,6 @@ import { SongsService } from '../services/songs.service';
 import { SettingsService } from '../services/settings.service';
 import { Router } from '@angular/router';
 import { GameService } from '../services/game.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface Track {
 	title: string
@@ -58,11 +57,13 @@ export class GameComponent implements OnInit {
     this.settingData.currentVolume.subscribe((x)=> {this.volume = x;});
     this.songData.currentRounds.subscribe((currentRounds) => {
       this.loadedRounds = currentRounds;
-      this.rounds = currentRounds.length;
-      this.options = currentRounds[0].length;
       this.buildGame()
     })
     this.end = false;
+  }
+
+  ngOnDestroy(): void {
+    this.sound.stop();
   }
 
   buildGame(): void{
@@ -120,10 +121,10 @@ export class GameComponent implements OnInit {
       this.hider = true;
     }
     if(this.regularMode){
-      if(this.rounds > this.round + 1 + 1){
+      if(this.rounds > this.round + 1){
         this.end = false;
       }
-      else if(this.rounds <= this.round + 1 + 1){
+      else if(this.rounds <= this.round + 1){
         this.end = true;
       }
     }

@@ -8,7 +8,7 @@ import { LeaderboardService } from '../services/leaderboard.service';
 })
 export class LeaderboardComponent implements OnInit {
   scores = this.leaderboardService.getScores();
-
+  @Input() Regular = true;
   @Output() sender = new EventEmitter<any>;
   constructor(  private leaderboardService: LeaderboardService) {
 
@@ -17,6 +17,16 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit(): void {
     this.sender.emit(this.scores);
   }
+
+  getRegular(){
+    return this.scores.filter((x) =>  x["type"] == "Regular" );
+  }
+  getInfinite(){
+
+    return this.scores.filter((x) =>  x["type"] == "Infinite" );
+  }
+
+
 
 
 
