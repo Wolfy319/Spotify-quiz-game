@@ -22,6 +22,10 @@ interface Round {
 
 
 export class SongsService {
+
+	token: string = "";
+	params: any;
+
 	private roundsSource = new BehaviorSubject<Track[][]>([])
 	currentRounds = this.roundsSource.asObservable()
 	
@@ -29,7 +33,7 @@ export class SongsService {
 		this.roundsSource.next([])
 	}
 
-	getRounds({token, params, numChoices}: any): void {
+	getRounds({token, params = this.params, numChoices}: any): void {
 		this.fetchTracks({token:token, params:params})
 		.then((tracks) => {
 			let rounds = []
@@ -41,6 +45,8 @@ export class SongsService {
 		.then((rounds) => {
 			this.roundsSource.next(rounds)
 		})
+		this.token = token;
+		this.params = params;
 	}
 
 	fetchTracks = ({token, params}: any) => {
@@ -64,6 +70,11 @@ export class SongsService {
 
 	parseDate(date:string): string {
 		return date.slice(5, 7) + "/" + date.slice(8,10) + "/" + date.slice(0,4)
+	}
+
+	refetch = (numChoices: number) => {
+		this.params["offset"] = Math.floor(Math.random() * 1000);
+		return this.getRounds({token: this.token, params: this.params, numChoices: numChoices});
 	}
 	
 }
