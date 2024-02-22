@@ -46,7 +46,6 @@ export class GameComponent implements OnInit {
     this.sound.stop();
     this.gameData.updateScore(this.score)
     this.gameData.updateMode(this.mode)
-    console.log(this.score)
     this.router.navigateByUrl('/gameover')
   }
 
@@ -60,6 +59,16 @@ export class GameComponent implements OnInit {
       this.buildGame()
     })
     this.end = false;
+  }
+
+  resetInfinite(){
+        this.songData.clearTracks();
+        this.songData.refetch(this.options);
+        this.songData.currentRounds.subscribe((currentRounds) => {
+          this.loadedRounds = currentRounds;
+          this.buildGame(); 
+          
+        })
   }
 
   ngOnDestroy(): void {
@@ -93,9 +102,19 @@ export class GameComponent implements OnInit {
   nextGame(): void{
     this.sound.stop();
     this.round+=1;
-    this.buildGame();
+    if(!this.regularMode){
+      if(this.rounds - 1 < this.round){
+        this.round = 0
+        this.resetInfinite();
+      }
+      else{
+        this.buildGame();
+      }
+    }
+    else{
+      this.buildGame();
+    }
     this.hider = !this.hider;
-    console.log(this.round);
     
   }
 
@@ -132,7 +151,6 @@ export class GameComponent implements OnInit {
       this.end = false;
     }
     this.addScore();
-
 
   }
 

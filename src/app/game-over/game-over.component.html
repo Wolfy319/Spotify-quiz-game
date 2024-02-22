@@ -3,7 +3,7 @@
 <h2>{{score}} Points</h2>
 <form [formGroup]="leaderboardForm">
 	<label for="name">Enter your name to submit your score:</label>
-	<input type="text" formControlName="name">
+	<input style = "border-color: black;border-style: solid;" type="text" formControlName="name">
 </form>
 
 <button *ngIf="!submitted" (click)="onPress()">press</button>

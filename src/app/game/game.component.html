@@ -3,7 +3,7 @@
 <div class="head">
     GAME
 </div>
-<body>
+<body *ngIf="(loadedRounds.length > 0)">
 
     <div>
         <button class="submit" style = "font-size: 50px;" (click)="playMusic()">{{sound.playing() ? 'Stop' : 'Play'}}</button>
@@ -43,4 +43,9 @@
     <button *ngIf="(end)" class="submit" (click)="endGame()">Game Over</button>
 
 </div>
+</body>
+
+<body *ngIf="!(loadedRounds.length > 0)">
+    <p>Error, no songs found, please return to homepage and try again.</p>
+    <button routerLink="/" class="submit">Return Home</button>
 </body>
