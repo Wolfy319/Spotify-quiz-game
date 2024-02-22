@@ -1,9 +1,9 @@
 button{
     border-style: none;
     padding:0px;
-    background-color: transparent;
+    background-color: rgb(230, 230, 230);
 }
-.submit{
+/* .submit{
     border-style: outset;
     border-width: 5px;
     border-color: black;
@@ -11,6 +11,17 @@ button{
     padding: 5px;
     font-size: 16px;
     margin:15px;
+} */
+
+.grid-container {
+    margin-bottom: 20px;
+}
+
+.sound {
+    font-size: 100px;
+    padding: 5px;
+    margin:30px;
+    cursor: pointer;
 }
 .submit:hover{
     background-color: aqua;
