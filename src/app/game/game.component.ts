@@ -82,8 +82,15 @@ export class GameComponent implements OnInit {
     for(let i = 0; i < this.options; i++){
       let info: any =  this.loadedRounds[this.round][i]
       this.choices.push({id: i + 1, info: info});
-      this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
     }
+    this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
+    if(this.correct['info']){
+      while(this.correct['info']['previewUrl'] == null){
+        console.log("no preview available");
+        this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
+      }
+  }
+    console.log(this.correct);
     this.sound = new Howl({
       src:[this.correct['info']['previewUrl']],
       volume: this.volume/100,
