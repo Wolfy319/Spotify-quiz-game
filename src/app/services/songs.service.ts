@@ -50,9 +50,9 @@ export class SongsService {
 			for(let track of response.tracks.items) {
 				tracks.push({
 					title: track.name,
-					year: track.album.release_date,
+					year: this.parseDate(track.album.release_date),
 					albumName: track.album.name,
-					albumCoverUrl: track.album.images[0],
+					albumCoverUrl: track.album.images[0].url,
 					artists: track.album.artists.map((artistObj: any) => artistObj.name),
 					previewUrl: track.preview_url
 				})
@@ -61,4 +61,9 @@ export class SongsService {
 			return tracks
 		})
 	}
+
+	parseDate(date:string): string {
+		return date.slice(5, 7) + "/" + date.slice(8,10) + "/" + date.slice(0,4)
+	}
+	
 }

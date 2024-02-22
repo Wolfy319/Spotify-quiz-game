@@ -1,8 +1,7 @@
-<div>
-    <ul>
-        <li>Album: {{track["albumName"]}}</li>
-        <li>Name: {{track["title"]}}</li>
-        <li>Year: {{track["year"]}}</li>
-        <li>Artist: {{track["artists"]}}</li>
-    </ul>
+<div class="choice-container">
+    <img [src]="track['albumCoverUrl']" class="album-cover">
+    <div class="info">
+        <p class="field">"{{track['title']}}" by {{artistString}}</p>
+        <i>{{track["albumName"]}}, {{track['year']}}</i>
+    </div>
 </div>

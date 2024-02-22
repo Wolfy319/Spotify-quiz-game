@@ -8,20 +8,16 @@
     <div>
         <button class="submit" style = "font-size: 50px;" (click)="playMusic()">{{sound.playing() ? 'Stop' : 'Play'}}</button>
     </div>
-<table *ngIf = "!hider" style="width:100%">
-    <tr style="text-align: center;">
-        <th>options</th>
-    </tr>
-    <tr>
-        <td *ngFor="let choice of choices">
+<div *ngIf = "!hider" style="width:100%">
+    <div class="grid">
+        <div *ngFor="let choice of choices" >
             <button class="button" [style.background-color]="picked==choice['id'] ? '#00ffb3' : 'white' " (click)="onPress(choice)">
                 <app-options [track]="choice['info']" [id]="choice['id']">
-
                 </app-options>
             </button>
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 <div style="width: 100%" *ngIf="!hider">
     <button class="submit" style= "align-self: center;" (click)="onSubmit()" >Guess</button>
 </div>

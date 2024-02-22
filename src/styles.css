@@ -1,12 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 
+html * {
+	font-family: sans-serif;
+	text-decoration: none;
+}
+
+input {
+	border: none;
+	padding:4px;
+	font-size: 16px;
+}
+
 .container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin:auto
 }
+
 .form-box {
 	display: flex;
+	justify-content: center;
 	flex-direction: column;
+	margin: 20px 0 20px 0;
+}
+
+.header {
+	font-size: 100px;
+	margin:0;
+}
+
+.label {
+	font-size: 20px;
+}
+
+.grey {
+	background-color: rgb(197, 197, 197);
 }
