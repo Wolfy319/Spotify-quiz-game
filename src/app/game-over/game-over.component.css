@@ -1,0 +1,34 @@
+.game-over-page {
+	padding: 3em
+}
+
+#game-over-text {
+	font-size: 60px
+}
+
+.score-container {
+	display:flex;
+	align-items: center;
+}
+
+.score-label {
+	padding: 10px
+}
+
+.score {
+	padding: 10px
+}
+
+.label {
+	margin: 20px;
+	border: none;
+}
+
+.button {
+	margin: 10px
+}
+
+#leaderboard {
+	margin-top: 30px;
+	width:70%;
+}

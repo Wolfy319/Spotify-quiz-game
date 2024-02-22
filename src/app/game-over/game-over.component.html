@@ -1,11 +1,22 @@
-<a routerLink="/">Return home</a>
-<h1>You Scored: </h1>
-<h2>{{score}} Points</h2>
-<form [formGroup]="leaderboardForm">
-	<label for="name">Enter your name to submit your score:</label>
-	<input style = "border-color: black;border-style: solid;" type="text" formControlName="name">
-</form>
+<app-navbar></app-navbar>
+<div class="container game-over-page">
+	<h1 class="header" id="game-over-text" style="color: red;">Game Over</h1>
+	<div class="score-container">
+		<h1 class="score-label">You Scored: </h1>
+		<h2 class="grey score">{{score}} Points</h2>
+	</div>
 
-<button *ngIf="!submitted" (click)="onPress()">press</button>
-<button *ngIf="submitted" routerLink="/">Home</button>
-<app-leaderboard [Regular]="mode == 'Regular' ? true: false"></app-leaderboard>
+	<form [formGroup]="leaderboardForm" class="form-box" style="margin-top:0">
+		<div>
+			<label for="name" class="label">Enter your name:</label>
+			<input class="grey" type="text" formControlName="name">
+		</div>
+	</form>
+
+	<div>
+		<button class="button" *ngIf="!submitted" (click)="onPress()">Submit</button>
+		<!-- <button class="button" (click)="onPress()">Submit</button> -->
+		<button class="button" routerLink="/">Play again</button>
+	</div>
+	<app-leaderboard id="leaderboard" [Regular]="mode == 'Regular' ? true: false"></app-leaderboard>
+</div>

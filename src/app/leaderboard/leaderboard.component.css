@@ -1,12 +1,33 @@
+.leaderboard-box {
+    background-color: #c5c5c5;
+}
+
+.tab {
+    width: 10em;
+    border: none;
+    border-radius: 20px 20px 0 0;
+    background-color: #e6e6e6;
+    font-size: 17px;
+    padding:5px;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #c5c5c5;
+    cursor: default;
+}
+
 table{
     width: 100%;
-    border-style: outset;
-    border-width: 10px;
-    border-collapse: collapse;
     text-align: center;
-    border-color: black;
+    padding: 5px 40px
 }
-td{
-    border-style:solid;
-    border-width: 5px;
+
+.column-names {
+    width:100%;
+    justify-content: center;
+}
+
+.player {
+    background-color: white;
 }
