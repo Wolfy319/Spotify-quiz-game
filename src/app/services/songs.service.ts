@@ -37,14 +37,18 @@ export class SongsService {
 		this.fetchTracks({token:token, params:params})
 		.then((tracks) => {
 			let rounds = []
-			for(let i = 0; i < tracks.length; i += numChoices) { 
-				rounds.push(tracks.slice(i, i + numChoices))
+			if(tracks) {
+				for(let i = 0; i < tracks.length; i += numChoices) { 
+					rounds.push(tracks.slice(i, i + numChoices))
+				}
 			}
+			
 			return rounds
 		})
 		.then((rounds) => {
 			this.roundsSource.next(rounds)
 		})
+		.catch(err => console.log(err))
 		this.token = token;
 		this.params = params;
 	}
@@ -66,6 +70,7 @@ export class SongsService {
 			}
 			return tracks
 		})
+		.catch(err => console.log(err))
 	}
 
 	parseDate(date:string): string {
