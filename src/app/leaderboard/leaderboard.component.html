@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
     <tr>
         <th>Name</th>
         <th>Score</th>
@@ -10,4 +10,36 @@
         <td>{{score["type"]}}</td>
 
     </tr>
+</table> -->
+<div *ngIf="Regular">
+Regular
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Mode</th>
+    </tr>
+    <tr class="leaderboard" *ngFor="let score of getRegular()">
+        <td>{{score["name"]}}</td>
+        <td>{{score["score"]}}</td>
+        <td>{{score["type"]}}</td>
+
+    </tr>
 </table>
+</div>
+<div *ngIf="!Regular">
+Infinite
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Mode</th>
+    </tr>
+    <tr class="leaderboard" *ngFor="let score of getInfinite()">
+        <td>{{score["name"]}}</td>
+        <td>{{score["score"]}}</td>
+        <td>{{score["type"]}}</td>
+
+    </tr>
+</table>
+</div>

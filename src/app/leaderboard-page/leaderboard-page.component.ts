@@ -7,9 +7,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class LeaderboardPageComponent implements OnInit {
 
+  Reg: boolean = true;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  switch (){
+    this.Reg = !this.Reg;
   }
 
 }
