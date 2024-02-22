@@ -13,6 +13,7 @@ a {
 	margin: 1vw;
 	text-decoration: none;
 	color:black;
+	transition: color 0.45s;
 }
 
 a:hover {

@@ -5,6 +5,12 @@ html * {
 	text-decoration: none;
 }
 
+input {
+	border: none;
+	padding:4px;
+	font-size: 16px;
+}
+
 .container {
 	display: flex;
 	flex-direction: column;
