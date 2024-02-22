@@ -1,20 +1,18 @@
 <app-navbar></app-navbar>
-<div class="container">
-  <h1>Who's Who</h1>
-  <form [formGroup]="homeGameForm" class="form-box">
-    <label for="years">Enter a range of years (ex: 1999-2010)</label>
-    <div>
-      <input type="number" name="years" formControlName="yearsFrom"/> 
-      <input type="number"name="years" formControlName="yearsTo"/>
+<div class="container" id="home">
+  <h1 class="header">Who's Who</h1>
+  <form [formGroup]="homeGameForm" class="form-box" id="home-form">
+    <label class="label"for="years">Enter a range of years</label>
+    <div id="year-container">
+      <input type="number" name="years" formControlName="yearsFrom" class="year-input"/> 
+      <p style="margin: 2px">-</p>
+      <input type="number"name="years" formControlName="yearsTo" class="year-input"/>
     </div>
-    <label for="genre">Select a genre</label>
+    <label class="label" for="genre">Select a genre</label>
     <select name="genre" formControlName="selectedGenre">
       <option *ngFor="let genre of genres">{{genre}}</option>
     </select>
   </form>
   <app-button (click)="startGame(token, 'Regular')" text="Play"></app-button>
   <app-button (click)="startGame(token, 'Infinite')" text="Infinite Mode"></app-button>
-  <ul>
-    <li *ngFor="let track of rounds"><p *ngFor="let item of track">{{item.title}}</p></li>
-  </ul>
 </div>

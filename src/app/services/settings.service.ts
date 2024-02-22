@@ -12,7 +12,7 @@ export class SettingsService {
 	private numRoundsSource = new BehaviorSubject<number>(3)
 	currentNumRounds = this.numRoundsSource.asObservable()
 
-	private numSongChoicesSource = new BehaviorSubject<number>(4)
+	private numSongChoicesSource = new BehaviorSubject<number>(3)
 	currentNumSongChoices = this.numSongChoicesSource.asObservable()
 
 	updateVolume(volume: number) {
