@@ -1,7 +1,7 @@
 <div class="navbar">
     <nav>
-        <a routerLink="/"><h1 class="tab">Home</h1></a>
-        <a routerLink="/leaderboard"><h1 class="tab">Leaderboard</h1></a>
-        <a routerLink="/settings"><h1 class="tab">Settings</h1></a>
+        <a routerLink="/"><h1 class="tab" [class.active]="urlMatches('/')">Home</h1></a>
+        <a routerLink="/leaderboard"><h1 class="tab" [class.active]="urlMatches('/leaderboard')">Leaderboard</h1></a>
+        <a routerLink="/settings"><h1 class="tab" [class.active]="urlMatches('/settings')">Settings</h1></a>
     </nav>
 </div>
