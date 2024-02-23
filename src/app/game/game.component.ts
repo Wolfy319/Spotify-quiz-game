@@ -24,6 +24,8 @@ export class GameComponent implements OnInit {
   constructor(private songData: SongsService, private settingsData: SettingsService, private router: Router, private gameData: GameService, private settingData: SettingsService) { }
 
   mode: string = "Regular"
+  loading: boolean = true;
+  timer : any;
   regularMode: boolean = true; 
   hider: boolean = false;
   correct: any;
@@ -41,6 +43,16 @@ export class GameComponent implements OnInit {
 
   @Output() choose = new EventEmitter();
 
+  checkRounds(){
+    let status = false;
+    if((this.loadedRounds.length > 0)){
+      status = true;
+    }
+    else{
+      status = false;
+    }
+    return status;
+  }
 
   endGame(){
     this.sound.stop();
@@ -50,6 +62,7 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.settingsData.currentNumRounds.subscribe((numRounds) => this.rounds = numRounds)
     this.settingsData.currentNumSongChoices.subscribe((numSongs) => this.options = numSongs)
     this.gameData.currentMode.subscribe((modeData) => {this.mode = modeData; this.regularMode = modeData === "Regular" ? true: false})
@@ -58,7 +71,7 @@ export class GameComponent implements OnInit {
       this.loadedRounds = currentRounds;
       this.buildGame()
     })
-    this.end = false;
+    console.log(this.loading);
   }
 
   resetInfinite(){
@@ -76,6 +89,7 @@ export class GameComponent implements OnInit {
   }
 
   buildGame(): void{
+    this.loading = true;
     this.picked = 0;
     this.correct = null;
     this.choices = [];
@@ -96,6 +110,7 @@ export class GameComponent implements OnInit {
       volume: this.volume/100,
       html5: true
     });
+    this.loading = false;
   }
 
   playMusic(){
@@ -109,6 +124,8 @@ export class GameComponent implements OnInit {
   nextGame(): void{
     this.sound.stop();
     this.round+=1;
+    this.loading = true;
+    console.log("loading", this.loading);
     if(!this.regularMode){
       if(this.rounds - 1 < this.round){
         this.round = 0
@@ -122,7 +139,6 @@ export class GameComponent implements OnInit {
       this.buildGame();
     }
     this.hider = !this.hider;
-    
   }
 
   addScore(){
