@@ -39,9 +39,11 @@ button{
 .head{
     font-size: 40px;
     font-style: italic;
-    border-style: groove;
+    border-style: none;
     border-color: black;
+    padding:10px;
     border-width: 10px;
+    font-weight: bold;
     text-align: center;
 }
 
