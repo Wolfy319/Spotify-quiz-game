@@ -41,13 +41,13 @@
     <app-options [track]="correct['info']"></app-options>
     </div>
 
-    <button *ngIf="(!end)" class="submit" (click)="nextGame()" >Next Round</button>
-    <button *ngIf="(end)" class="submit" (click)="endGame()">Game Over</button>
+    <button *ngIf="(!end)" class="submit button" (click)="nextGame()" >Next Round</button>
+    <button *ngIf="(end)" class="submit button" (click)="endGame()">Game Over</button>
 
 </div>
 </body>
 
 <body *ngIf="!(loadedRounds.length > 0)">
     <p>Error, no songs found, please return to homepage and try again.</p>
-    <button routerLink="/" class="submit">Return Home</button>
+    <button routerLink="/" class="submit button">Return Home</button>
 </body>
