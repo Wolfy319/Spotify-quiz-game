@@ -4,6 +4,7 @@ import { SongsService } from '../services/songs.service';
 import { SettingsService } from '../services/settings.service';
 import { Router } from '@angular/router';
 import { GameService } from '../services/game.service';
+import { timeout } from 'rxjs';
 
 interface Track {
 	title: string
@@ -25,8 +26,9 @@ export class GameComponent implements OnInit {
 
   mode: string = "Regular"
   loading: boolean = true;
-  timer : any;
-  regularMode: boolean = true; 
+  regularMode: boolean = true;
+  timer: any; 
+  error: boolean = false;
   hider: boolean = false;
   correct: any;
   sound: Howl = new Howl({src: [""]});
@@ -63,6 +65,7 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+    this.timer = setTimeout(()=> this.error = true, 5000);
     this.settingsData.currentNumRounds.subscribe((numRounds) => this.rounds = numRounds)
     this.settingsData.currentNumSongChoices.subscribe((numSongs) => this.options = numSongs)
     this.gameData.currentMode.subscribe((modeData) => {this.mode = modeData; this.regularMode = modeData === "Regular" ? true: false})
@@ -71,7 +74,6 @@ export class GameComponent implements OnInit {
       this.loadedRounds = currentRounds;
       this.buildGame()
     })
-    console.log(this.loading);
   }
 
   resetInfinite(){
@@ -100,7 +102,6 @@ export class GameComponent implements OnInit {
     this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
     if(this.correct['info']){
       while(this.correct['info']['previewUrl'] == null){
-        console.log("no preview available");
         this.correct = this.choices[Math.floor(Math.random() * this.choices.length)];
       }
   }
@@ -111,6 +112,7 @@ export class GameComponent implements OnInit {
       html5: true
     });
     this.loading = false;
+    this.error = false;
   }
 
   playMusic(){
@@ -125,7 +127,6 @@ export class GameComponent implements OnInit {
     this.sound.stop();
     this.round+=1;
     this.loading = true;
-    console.log("loading", this.loading);
     if(!this.regularMode){
       if(this.rounds - 1 < this.round){
         this.round = 0

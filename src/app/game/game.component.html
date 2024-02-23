@@ -27,17 +27,20 @@
 <div style="align-items: center; align-content: center; align-self:center; width:100% " *ngIf="hider">
 
     <div *ngIf="picked != correct['id']">
-        <p>Incorrect</p>
+        <p class = "correct">Incorrect</p>
+    </div>
+    <div *ngIf="picked == correct['id']">
+        <p class = "correct">Correct</p>
     </div>
 <div style="float: left; width: 50%;">
-    <p>You picked: </p>
+    <p class="correct">You picked: </p>
     <div style=" max-width: fit-content; margin:auto" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
         <app-options [track]="choices[picked - 1]['info']"></app-options>
     </div>
 </div>
 
 <div style="float: right; width: 50%">
-    <p>Correct Answer: </p>
+    <p class="correct">Correct Answer: </p>
 
     <div style="margin: auto; max-width: fit-content;">
     <app-options [track]="correct['info']"></app-options>
@@ -53,8 +56,8 @@
 </body>
 
 <body *ngIf="loading" style="font-size: 30px;">
-    loading ...
-    <p> If loading takes took long, please return to homepage and try again.</p>
-    <button routerLink="/" class="submit button">Return Home</button>
+    <p *ngIf="!error">loading ...</p>
+    <p *ngIf="error"> Something went wrong, please return to homepage and try again.</p>
+    <button *ngIf="error" routerLink="/" class="submit button">Return Home</button>
 </body>
 

@@ -3,11 +3,14 @@
 	text-align: center;
 	align-self: center;
 	background-color: rgb(197, 197, 197);
+	font-size: 16px;
 
 }
 
 #home-form {
 	align-items: center;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #year-container {

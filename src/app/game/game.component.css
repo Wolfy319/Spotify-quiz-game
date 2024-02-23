@@ -9,6 +9,11 @@ button{
     margin-bottom: 20px;
 }
 
+.correct{
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .sound {
     font-size: 100px;
     padding: 5px;
