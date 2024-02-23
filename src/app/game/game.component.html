@@ -3,12 +3,12 @@
 <div class="head">
     GAME
 </div>
-<body *ngIf="(loadedRounds.length > 0)">
+<body *ngIf="checkRounds() && !loading">
 
     <div>
         <button class="submit" style = "font-size: 50px;" (click)="playMusic()">{{sound.playing() ? 'Stop' : 'Play'}}</button>
     </div>
-<div *ngIf = "!hider" style="width:100%">
+<div *ngIf="!hider" style="width:100%">
     <div class="grid">
         <div *ngFor="let choice of choices" >
             <button class="button" [style.background-color]="picked==choice['id'] ? '#00ffb3' : 'white' " (click)="onPress(choice)">
@@ -27,25 +27,32 @@
     <div *ngIf="picked != correct['id']">
         <p>Incorrect</p>
     </div>
-
+<div style="float: left; width: 50%;">
     <p>You picked: </p>
-    <div style="max-width: fit-content; margin:auto" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
+    <div style=" max-width: fit-content; margin:auto" [style.background-color]="(picked == correct['id']) ? 'green' : 'red'">
         <app-options [track]="choices[picked - 1]['info']"></app-options>
     </div>
-    
+</div>
+
+<div style="float: right; width: 50%">
     <p>Correct Answer: </p>
 
     <div style="margin: auto; max-width: fit-content;">
     <app-options [track]="correct['info']"></app-options>
     </div>
-
+</div>
+<br>
+<div>
     <button *ngIf="(!end)" class="submit" (click)="nextGame()" >Next Round</button>
     <button *ngIf="(end)" class="submit" (click)="endGame()">Game Over</button>
 
 </div>
+</div>
 </body>
 
-<body *ngIf="!(loadedRounds.length > 0)">
-    <p>Error, no songs found, please return to homepage and try again.</p>
+<body *ngIf="loading" style="font-size: 30px;">
+    loading ...
+    <p> If loading takes took long, please return to homepage and try again.</p>
     <button routerLink="/" class="submit">Return Home</button>
 </body>
+

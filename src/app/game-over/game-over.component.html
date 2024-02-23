@@ -5,7 +5,6 @@
 	<label for="name">Enter your name to submit your score:</label>
 	<input style = "border-color: black;border-style: solid;" type="text" formControlName="name">
 </form>
-
 <button *ngIf="!submitted" (click)="onPress()">press</button>
 <button *ngIf="submitted" routerLink="/">Home</button>
 <app-leaderboard [Regular]="mode == 'Regular' ? true: false"></app-leaderboard>

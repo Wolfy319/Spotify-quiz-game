@@ -2,6 +2,7 @@ button{
     border-style: none;
     padding:0px;
     background-color: transparent;
+    border-radius: 5px;
 }
 .submit{
     border-style: outset;

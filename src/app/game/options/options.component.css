@@ -10,6 +10,7 @@
     width: 20em;
     height: 15em;
     text-align: left;
+    border-radius: 5px;
 }
 .album-cover {
     width: 120px;
