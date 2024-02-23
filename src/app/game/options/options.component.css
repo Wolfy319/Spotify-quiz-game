@@ -10,7 +10,18 @@
     width: 20em;
     height: 11em;
     text-align: left;
+    overflow: hidden;
 }
+
+.choice-container:hover {
+    overflow: visible;
+}
+
+.info {
+    padding: 5px;
+    border-radius: 20px;
+}
+
 .album-cover {
     width: 120px;
     border-radius: 50%;
