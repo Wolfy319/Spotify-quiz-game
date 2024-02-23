@@ -26,6 +26,9 @@ export class LeaderboardComponent implements OnInit {
     return this.scores.filter((x) =>  x["type"] == "Infinite" );
   }
 
+  switch(regular: boolean){
+    this.Regular = regular;
+  }
 
 
 

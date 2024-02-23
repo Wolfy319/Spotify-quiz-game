@@ -1,45 +1,64 @@
-<!-- <table>
-    <tr>
-        <th>Name</th>
-        <th>Score</th>
-        <th>Mode</th>
-    </tr>
-    <tr class="leaderboard" *ngFor="let score of scores">
-        <td>{{score["name"]}}</td>
-        <td>{{score["score"]}}</td>
-        <td>{{score["type"]}}</td>
+<!-- <div>
+    <button class="tab" (click)="switch()">Regular Mode</button>
+    <button class="tab" (click)="switch()">Infinite Mode</button>
+    <div class="leaderboard-box" *ngIf="Regular">
+        <table class="leaderboard">
+        <tr class="column-names">
+            <th>Name</th>
+            <th>Score</th>
+            <th>Mode</th>
+        </tr>
+        <tr *ngFor="let score of getRegular()">
+            <td>{{score["name"]}}</td>
+            <td>{{score["score"]}}</td>
+            <td>{{score["type"]}}</td>
+    
+        </tr>
+    </table>
+    </div>
+    <div *ngIf="!Regular">
+    <table class="leaderboard">
+        <tr class="column-names">
+            <th>Name</th>
+            <th>Score</th>
+            <th>Mode</th>
+        </tr>
+        <tr *ngFor="let score of getInfinite()">
+            <td>{{score["name"]}}</td>
+            <td>{{score["score"]}}</td>
+            <td>{{score["type"]}}</td>
+        </tr>
+    </table>
+    </div>
+</div> -->
 
-    </tr>
-</table> -->
-<div *ngIf="Regular">
-Regular
-    <table>
-    <tr>
-        <th>Name</th>
-        <th>Score</th>
-        <th>Mode</th>
-    </tr>
-    <tr class="leaderboard" *ngFor="let score of getRegular()">
-        <td>{{score["name"]}}</td>
-        <td>{{score["score"]}}</td>
-        <td>{{score["type"]}}</td>
 
-    </tr>
-</table>
-</div>
-<div *ngIf="!Regular">
-Infinite
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Score</th>
-        <th>Mode</th>
-    </tr>
-    <tr class="leaderboard" *ngFor="let score of getInfinite()">
-        <td>{{score["name"]}}</td>
-        <td>{{score["score"]}}</td>
-        <td>{{score["type"]}}</td>
+<div>
+    <button class="tab" [class.active]="Regular" (click)="switch(true)">Regular Mode</button>
+    <button class="tab" [class.active]="!Regular" (click)="switch(false)">Infinite Mode</button>
+    <div class="leaderboard-box" >
+        <table class="leaderboard">
+        <tr class="column-names">
+            <th>Name</th>
+            <th>Score</th>
+            <th>Mode</th>
+        </tr>
 
-    </tr>
-</table>
+        <ng-container *ngIf="Regular">
+            <tr class="player" *ngFor="let score of getRegular()">
+                <td>{{score["name"]}}</td>
+                <td>{{score["score"]}}</td>
+                <td>{{score["type"]}}</td>
+            </tr>
+        </ng-container>
+
+        <ng-container *ngIf="!Regular">
+            <tr class="player" *ngFor="let score of getInfinite()">
+                <td>{{score["name"]}}</td>
+                <td>{{score["score"]}} points</td>
+                <td>{{score["type"]}}</td>
+            </tr>
+        </ng-container>
+    </table>
+    </div>
 </div>

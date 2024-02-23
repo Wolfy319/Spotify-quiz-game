@@ -1,17 +1,19 @@
 <app-navbar></app-navbar>
 
-<div class="head">
+<!-- <div class="head">
     GAME
 </div>
 <body *ngIf="checkRounds() && !loading">
 
-    <div>
-        <button class="submit" style = "font-size: 50px;" (click)="playMusic()">{{sound.playing() ? 'Stop' : 'Play'}}</button>
+    <div class="sound" (click)="playMusic()">
+        <i *ngIf="!sound.playing()" class="fa fa-play"></i>
+        <i *ngIf="sound.playing()" class="fa fa-pause"></i>
+        <!-- <button class="submit" style = "font-size: 50px;" (click)="playMusic()">{{sound.playing() ? 'Stop' : 'Play'}}</button> -->
     </div>
-<div *ngIf="!hider" style="width:100%">
+<div class="grid-container" *ngIf = "!hider" style="width:100%">
     <div class="grid">
         <div *ngFor="let choice of choices" >
-            <button class="button" [style.background-color]="picked==choice['id'] ? '#00ffb3' : 'white' " (click)="onPress(choice)">
+            <button  [style.background-color]="picked==choice['id'] ? '#00ffb3' : 'white' " (click)="onPress(choice)">
                 <app-options [track]="choice['info']" [id]="choice['id']">
                 </app-options>
             </button>
@@ -19,7 +21,7 @@
     </div>
 </div>
 <div style="width: 100%" *ngIf="!hider">
-    <button class="submit" style= "align-self: center;" (click)="onSubmit()" >Guess</button>
+    <button class="button" style= "align-self: center;" (click)="onSubmit()" >Guess</button>
 </div>
 
 <div style="align-items: center; align-content: center; align-self:center; width:100% " *ngIf="hider">
@@ -53,6 +55,6 @@
 <body *ngIf="loading" style="font-size: 30px;">
     loading ...
     <p> If loading takes took long, please return to homepage and try again.</p>
-    <button routerLink="/" class="submit">Return Home</button>
+    <button routerLink="/" class="submit button">Return Home</button>
 </body>
 
